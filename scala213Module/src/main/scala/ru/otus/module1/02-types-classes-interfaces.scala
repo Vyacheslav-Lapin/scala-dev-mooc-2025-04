@@ -1,8 +1,7 @@
 package ru.otus.module1
 
-import java.io.{Closeable, File}
+import java.io.File
 import scala.io.{BufferedSource, Source}
-import scala.util.{Try, Using}
 
 
 object type_system {
