@@ -7,8 +7,12 @@ import scala.io.StdIn
 object ZioApp {
 
   def main(args: Array[String]): Unit = {
+
+      val Number = 10000
+      // println(zioRecursion.factorial(Number))
+
       Unsafe.unsafe { implicit u =>
-        zio.Runtime.default.unsafe.run(ZIO.attempt(println("Hello world")))
+        zio.Runtime.default.unsafe.run(???)
       }
   }
 
