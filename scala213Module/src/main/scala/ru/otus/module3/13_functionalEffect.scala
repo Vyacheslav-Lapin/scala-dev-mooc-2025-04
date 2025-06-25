@@ -40,9 +40,9 @@ object functional_effects {
        */
 
       case class Console[A](run: () => A, debug: () => List[String]) {
-        def map[B](f: A => B): Console[B] = flatMap(a => Console.succeed(f(a)))
-        def flatMap[B](f: A => Console[B]): Console[B] =
-          Console.succeed(f(this.run()).run())
+//        def map[B](f: A => B): Console[B] = flatMap(a => Console.succeed(f(a)))
+//        def flatMap[B](f: A => Console[B]): Console[B] =
+//          Console.succeed(f(this.run()).run())
       }
 
 
@@ -50,9 +50,9 @@ object functional_effects {
        * 2. Объявить конструкторы
        */
       object Console {
-        def succeed[A](a: => A): Console[A] = Console(() => a)
-        def printLine(str: String): Console[Unit] = Console(() => println(str))
-        def readLine(): Console[String] = Console(() => StdIn.readLine())
+//        def succeed[A](a: => A): Console[A] = Console(() => a)
+//        def printLine(str: String): Console[Unit] = Console(() => println(str))
+//        def readLine(): Console[String] = Console(() => StdIn.readLine())
       }
 
       /**
@@ -65,18 +65,18 @@ object functional_effects {
 //        println(s"Привет, $name")
 //      }
 
-      val greet: Console[Unit] = for{
-        _ <- Console.printLine("Как тебя зовут?")
-        name <- Console.readLine()
-        _ <- Console.printLine(s"Привет, $name")
-      } yield()
+//      val greet: Console[Unit] = for{
+//        _ <- Console.printLine("Как тебя зовут?")
+//        name <- Console.readLine()
+//        _ <- Console.printLine(s"Привет, $name")
+//      } yield()
 
-      val askForAge: Console[Unit] = for{
-        _ <- Console.printLine("Сколько тебе лет?")
-        age <- Console.readLine()
-        _ <- if (age > "18") Console.printLine("Можешь проходить")
-        else Console.printLine("Ты еще не можешь пройти")
-      } yield()
+//      val askForAge: Console[Unit] = for{
+//        _ <- Console.printLine("Сколько тебе лет?")
+//        age <- Console.readLine()
+//        _ <- if (age > "18") Console.printLine("Можешь проходить")
+//        else Console.printLine("Ты еще не можешь пройти")
+//      } yield()
 
 
 
