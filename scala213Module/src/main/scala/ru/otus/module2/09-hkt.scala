@@ -1,5 +1,7 @@
 package ru.otus.module2
 
+import scala.language.implicitConversions
+
 object higher_kinded_types{
 
   def tuple[A, B](a: List[A], b: List[B]): List[(A, B)] =
@@ -24,13 +26,13 @@ object higher_kinded_types{
   def tupleBindable[F[_], A, B](fa: Bindable[F, A], fb: Bindable[F, B]): F[(A, B)] =
     fa.flatMap(a => fb.map(b => (a, b)))
 
-  def optBindable[A](opt: Option[A]): Bindable[Option, A] = new Bindable[Option, A] {
+  implicit def optBindable[A](opt: Option[A]): Bindable[Option, A] = new Bindable[Option, A] {
     override def map[B](f: A => B): Option[B] = opt.map(f)
 
     override def flatMap[B](f: A => Option[B]): Option[B] = opt.flatMap(f)
   }
 
-  def listBindable[A](opt: List[A]): Bindable[List, A] = new Bindable[List, A] {
+  implicit def listBindable[A](opt: List[A]): Bindable[List, A] = new Bindable[List, A] {
     override def map[B](f: A => B): List[B] = opt.map(f)
 
     override def flatMap[B](f: A => List[B]): List[B] = opt.flatMap(f)
@@ -44,8 +46,8 @@ object higher_kinded_types{
   val list1 = List(1, 2, 3)
   val list2 = List(4, 5, 6)
 
-  val r1 = println(tupleBindable(optBindable(optA), optBindable(optB)))
-  val r2 = println(tupleBindable(listBindable(list1), listBindable(list2)))
+  lazy val r1 = println(tupleBindable(optBindable(optA), optBindable(optB)))
+  lazy val r2 = println(tupleBindable(listBindable(list1), listBindable(list2)))
 
 
 
